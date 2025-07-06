@@ -26,3 +26,6 @@ stripe==12.3.0
 tomli==2.2.1
 typing_extensions==4.14.1
 urllib3==2.5.0
+dj-database-url==2.1.0
+psycopg2-binary==2.9.9
+gunicorn==21.2.0

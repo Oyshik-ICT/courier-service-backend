@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.conf import settings
 
 from accounts.permissions import IsRegularUser
 from order.choices import PaymentStatusChoice, StatusChoice
@@ -49,6 +50,7 @@ class CreateStripeCheckoutSession(APIView):
 
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
+            base_url = settings.BASE_URL
 
             session = stripe.checkout.Session.create(
                 payment_method_types=["card"],
@@ -65,8 +67,8 @@ class CreateStripeCheckoutSession(APIView):
                     }
                 ],
                 mode="payment",
-                success_url=f"http://localhost:8000/api/v1/payment/payment-success/?order_id={order.order_id}",
-                cancel_url=f"http://localhost:8000/api/v1/payment/payment-cancel/?order_id={order.order_id}",
+                success_url=f"{base_url}/api/v1/payment/payment-success/?order_id={order.order_id}",
+                cancel_url=f"{base_url}/api/v1/payment/payment-cancel/?order_id={order.order_id}",
             )
 
             order.payment_id = session.id
