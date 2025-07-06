@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "order.apps.OrderConfig",
+    "payment.apps.PaymentConfig",
     "rest_framework",
     "rest_framework_simplejwt",
     "silk",
@@ -107,6 +109,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+env = environ.Env()
+environ.Env.read_env()
+
+STRIPE_SECRET_KEY = env("Secret_key")
+STRIPE_PUBLIC_KEY = env("Publishable_key")
 
 LANGUAGE_CODE = "en-us"
 

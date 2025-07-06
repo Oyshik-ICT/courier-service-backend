@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/auth/", include("accounts.urls")),
     path("api/v1/orders/", include("order.urls")),
+    path("api/v1/payment/", include("payment.urls")),
 ]
 
 urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
