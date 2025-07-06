@@ -1,5 +1,7 @@
-from .models import Order
 from rest_framework import serializers
+
+from .models import Order
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,7 +22,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "status",
             "payment_status",
             "payment_id",
-            "delivery_man"
+            "delivery_man",
         ]
 
         extra_kwargs = {
@@ -35,7 +37,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "payment_id": {"read_only": True},
             "delivery_man": {"read_only": True},
         }
-    
+
     def update(self, instance, validated_data):
         update_fields = []
 
@@ -62,7 +64,7 @@ class DeliveryManOrderSerializer(serializers.ModelSerializer):
             "created_at",
             "price",
             "tracking_number",
-            "status"
+            "status",
         ]
 
         extra_kwargs = {
@@ -77,6 +79,3 @@ class DeliveryManOrderSerializer(serializers.ModelSerializer):
             "price": {"read_only": True},
             "tracking_number": {"read_only": True},
         }
-
-
-    
